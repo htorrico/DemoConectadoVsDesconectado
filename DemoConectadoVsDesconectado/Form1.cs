@@ -46,7 +46,9 @@ namespace DemoConectadoVsDesconectado
 
             List<Empleado> empleados = new List<Empleado>();
 
-            SqlConnection connection = new SqlConnection("data source=DESKTOP-8DIVAMC;initial catalog = Neptuno; Integrated Security = True;");
+            //SqlConnection connection = new SqlConnection(@"data source=DESKTOP-8DIVAMC\SQLEXPRESS;initial catalog = Neptuno; Integrated Security = True;");
+
+            SqlConnection connection = new SqlConnection(@"data source=DESKTOP-8DIVAMC\SQLEXPRESS;initial catalog = Neptuno;  User Id=usrNeptuno ; Password=123456");
 
             connection.Open();
 
