@@ -29,48 +29,30 @@ namespace DemoConectadoVsDesconectado
 
         private void btnInsertar_Click(object sender, EventArgs e)
         {
-            SqlConnection connection = new SqlConnection(@"data source=DESKTOP-8DIVAMC\SQLEXPRESS;initial catalog = Neptuno;  User Id=usrNeptuno ; Password=123456");
             try
             {
-                connection.Open();
-                SqlCommand command = new SqlCommand("USP_InsertarEmpleados", connection);
-                command.CommandType = CommandType.StoredProcedure;
-
-                //Creando parámetros
-                SqlParameter parameter1 = new SqlParameter();
-                parameter1.Value =Convert.ToInt32( txtId.Text.Trim());
-                parameter1.ParameterName = "@IdEmpleado";
-                parameter1.SqlDbType = SqlDbType.Int;
-
-                SqlParameter parameter2 = new SqlParameter();
-                parameter2.Value = txtNombresInsertar.Text.Trim();
-                parameter2.ParameterName = "@Nombres";
-                parameter2.SqlDbType = SqlDbType.VarChar;
-
-                SqlParameter parameter3 = new SqlParameter();
-                parameter3.Value = txtApellidosInsertar.Text.Trim();
-                parameter3.ParameterName = "@Apellidos";
-                parameter3.SqlDbType = SqlDbType.VarChar;
-
-                command.Parameters.Add(parameter1);
-                command.Parameters.Add(parameter2);
-                command.Parameters.Add(parameter3);
+                negocio.InsEmpleadoAutoincremental(new Empleado
+                {                   
+                    Nombres = txtNombresInsertar.Text,
+                    Apellidos = txtApellidosInsertar.Text
+                });
 
 
-                command.ExecuteNonQuery();
-                MessageBox.Show("Registró Correctamente");
 
+                //negocio.InsEmpleado(new Empleado
+                //{
+                //    Id = Convert.ToInt32(txtId.Text),
+                //    Nombres = txtNombresInsertar.Text,
+                //    Apellidos = txtApellidosInsertar.Text
+                //});
+                MessageBox.Show("Registro Correctamente");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-
-                throw ex;
+                MessageBox.Show("Error");
+                
             }
-
-            finally
-            {
-                connection.Close();
-            }
+            
         }
     }
 }

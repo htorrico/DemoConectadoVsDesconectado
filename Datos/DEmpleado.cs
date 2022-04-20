@@ -72,5 +72,50 @@ namespace Datos
 
             return empleados;
         }
+
+        public void InsEmpleado(  Empleado empleado)
+        {            
+            try
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("USP_InsertarEmpleados", connection);
+                command.CommandType = CommandType.StoredProcedure;
+
+                //Creando parámetros
+                SqlParameter parameter1 = new SqlParameter();
+                parameter1.Value = empleado.Id;
+                parameter1.ParameterName = "@IdEmpleado";
+                parameter1.SqlDbType = SqlDbType.Int;
+
+                SqlParameter parameter2 = new SqlParameter();
+                parameter2.Value = empleado.Nombres.Trim();
+                parameter2.ParameterName = "@Nombres";
+                parameter2.SqlDbType = SqlDbType.VarChar;
+
+                SqlParameter parameter3 = new SqlParameter();
+                parameter3.Value = empleado.Apellidos.Trim();
+                parameter3.ParameterName = "@Apellidos";
+                parameter3.SqlDbType = SqlDbType.VarChar;
+
+                command.Parameters.Add(parameter1);
+                command.Parameters.Add(parameter2);
+                command.Parameters.Add(parameter3);
+
+
+                command.ExecuteNonQuery();
+                
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+            finally
+            {
+                connection.Close();
+            }
+        }
     }
 }

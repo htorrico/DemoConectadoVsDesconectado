@@ -15,5 +15,18 @@ namespace Negocio
         {
             return datos.GetEmpleados(Nombres,Apellidos);
         }
+
+        public void InsEmpleado(Empleado empleado)
+        {
+            datos.InsEmpleado(empleado);
+        }
+        public void InsEmpleadoAutoincremental(Empleado empleado)
+        {
+
+            var empleados = datos.GetEmpleados(string.Empty, string.Empty);
+            int max = empleados[empleados.Count - 1].Id;
+            empleado.Id = max + 1;
+            datos.InsEmpleado(empleado);
+        }
     }
 }
